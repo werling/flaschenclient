@@ -3,6 +3,8 @@ With this python library you can send simple animations to the flaschen taschen 
 Currently it's only working with the forked server which can be found here:
 https://github.com/werling/flaschen-taschen
 
+Before using this library please have a look at the original project: https://github.com/hzeller/flaschen-taschen
+
 Some examples how to use the python library can be found in the examples folder.
 The test display has the resolution 256x96.
 
