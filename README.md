@@ -67,5 +67,7 @@ Also defining the width, height, duration and the layer of the image/gif
 
 <img src="img/11.gif">
 
+### Of course you also can do all at once ;)
 
+<img src="img/free_for_all.gif">
 
