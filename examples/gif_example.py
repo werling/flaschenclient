@@ -1,8 +1,8 @@
-from flaschenQ7client.flaschenQ7client import FlaschenQ7Client
+from flaschenclient.flaschenclient import FlaschenClient
 import time
 from PIL import Image
 
-FLaTaClient = FlaschenQ7Client('localhost', 1337, display_width=256, display_height=96)
+FLaTaClient = FlaschenClient('localhost', 1337, display_width=256, display_height=96)
 FLaTaClient.clear_all()
 
 im = Image.open("earth.gif")

@@ -1,8 +1,8 @@
-from flaschenQ7client.flaschenQ7client import FlaschenQ7Client
+from flaschenclient.flaschenclient import FlaschenClient
 import time
 from PIL import Image
 
-FLaImg = FlaschenQ7Client('localhost', 1337, display_width=256, display_height=96, multi_threading=True, protocol="UDP")
+FLaImg = FlaschenClient('localhost', 1337, display_width=256, display_height=96, multi_threading=True, protocol="UDP")
 FLaImg.clear_all()
 
 im1 = Image.new('RGB', (16, 16), color='red')

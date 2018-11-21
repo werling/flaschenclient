@@ -23,7 +23,7 @@ from .imagewrapper import ImageWrapper
 from .limits import Limits
 
 
-class FlaschenQ7Client(object):
+class FlaschenClient(object):
     """ A Framebuffer display interface that sends a get_frame via UDP."""
 
     def __init__(self, host, port, display_width=0, display_height=0, multi_threading=True, protocol="UDP"):
@@ -224,8 +224,7 @@ class FlaschenQ7Client(object):
             sequence.pause()
 
             # send image to tcp or udp socket
-            success = self._socket_send(image_bytes, tmp_image.width, tmp_image.height, img_wrap.layer,
-                                        tmp_x_offset, tmp_y_offset)
+            success = self._socket_send(image_bytes, img_wrap.layer, tmp_x_offset, tmp_y_offset)
 
             # main loop stops if:
             # - protocol is tcp and an error occurred
@@ -280,15 +279,14 @@ class FlaschenQ7Client(object):
             return False
         return True
 
-    def _socket_send(self, image_bytes, width, height, layer, x_offset=0, y_offset=0, sock=None):
+    def _socket_send(self, image_bytes, layer, x_offset=0, y_offset=0, sock=None):
         try:
-            header = ("Q7\n{} {}\n255\n".format(width, height)).encode()
-            header += ("{}\n {}\n {}\n".format(x_offset, y_offset, layer)).encode()
+            footer = ("{}\n {}\n {}\n".format(x_offset, y_offset, layer)).encode()
 
             if sock is None:
-                self._sock.send(header + image_bytes.getvalue())
+                self._sock.send(image_bytes.getvalue() + footer)
             else:
-                sock.send(header + image_bytes.getvalue())
+                sock.send(image_bytes.getvalue() + footer)
 
             self._connected = True
             return True
