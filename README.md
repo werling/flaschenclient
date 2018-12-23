@@ -1,8 +1,6 @@
 flaschenclient
 =======
 With this python library you can send simple animations to the flaschen taschen server (fork). 
-
-With this python library you can send simple animations to the flaschen taschen server.
 Currently it's only working with the forked server which can be found here:
 https://github.com/werling/flaschen-taschen
 
