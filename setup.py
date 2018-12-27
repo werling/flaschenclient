@@ -5,12 +5,12 @@ with open("README.md", "r") as fh:
 
 setuptools.setup(
     name="flaschenclient",
-    version="0.1.0",
+    version="0.1.1",
     author="Sebastian Werling",
     author_email="sebastian.werling@gmail.com",
     description="With this python library you can send simple animations to the flaschen taschen server (fork).",
-    # long_description=long_description,
-    # long_description_content_type="text/markdown",
+    long_description=long_description,
+    long_description_content_type="text/markdown",
     url="https://github.com/werling/flaschenclient",
     packages=setuptools.find_packages(),
     classifiers=[
