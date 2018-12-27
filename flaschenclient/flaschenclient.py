@@ -218,6 +218,7 @@ class FlaschenClient(object):
 
             # convert to png for allowing bigger image sizes
             image_bytes = io.BytesIO()
+            tmp_image = tmp_image.convert('RGB')  # to get sure no alpha channel is used
             tmp_image.save(image_bytes, 'png')
 
             # keep frame per second rate
