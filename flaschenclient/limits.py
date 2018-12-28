@@ -79,6 +79,10 @@ class Limits(object):
 
         return value
 
+    def any_limit_reached(self):
+        return self._width.min_max_reached or self._height.min_max_reached or \
+               self._x.min_max_reached or self._y.min_max_reached or self._rot.min_max_reached
+
     @property
     def width(self):
         return self._width

@@ -22,6 +22,7 @@ class Sequence(object):
         self._auto_stop = True
         self._clear_after_exit = True
         self._clear_prot_area = False
+        self._stop_loop_at_limit = False
 
         self._starting_time = None
         self._last_frame_time = None
@@ -91,3 +92,11 @@ class Sequence(object):
     @clear_prot_area.setter
     def clear_prot_area(self, value):
         self._clear_prot_area = value
+
+    @property
+    def stop_loop_at_limit(self):
+        return self._stop_loop_at_limit
+
+    @stop_loop_at_limit.setter
+    def stop_loop_at_limit(self, value):
+        self._stop_loop_at_limit = value

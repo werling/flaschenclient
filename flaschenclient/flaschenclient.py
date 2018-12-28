@@ -54,7 +54,7 @@ class FlaschenClient(object):
              blur_in_frames=0, blur_out_frames=0,
              timeout=0, ms_between_frames=100, auto_stop=True, clear_after_exit=True, clear_prot_area=True,
              x_vel=0, x_acc=0, y_vel=0, y_acc=0, rot_vel=0, rot_acc=0, zoom_vel=0, zoom_acc=0, x_gravity=0, y_gravity=0,
-             action_at_limit=None,
+             action_at_limit=None, stop_loop_at_limit=False,
              x_min=None, x_max=None, y_min=None, y_max=None, rot_min=None, rot_max=None,
              width_min=None, width_max=None, height_min=None, height_max=None):
         """
@@ -95,6 +95,7 @@ class FlaschenClient(object):
                              inverse_single: Inverses only motion which triggered the limit
                              reset_vel_inverse_all: Resets velocity and reversing motion.
                              None: Nothing happens after limit is reached
+            stop_loop_at_limit: stops the main loop if a limit is reached
 
             x_min: Minimum x position of image
             x_max: Maximum x position of image
@@ -143,6 +144,7 @@ class FlaschenClient(object):
         sequence.auto_stop = auto_stop
         sequence.clear_after_exit = clear_after_exit
         sequence.clear_prot_area = clear_prot_area
+        sequence.stop_loop_at_limit = stop_loop_at_limit
 
         self._stop = False
         self._nr_threads += 1
@@ -232,7 +234,8 @@ class FlaschenClient(object):
             # - stop is set to true
             # - timeout is reached
             # - auto_stop is true and frame is not visible anymore (e.g. outside the display, too small, etc...)
-            if sequence.timeout_reached() or self._stop:
+            if sequence.timeout_reached() or self._stop or \
+                    (sequence.stop_loop_at_limit and img_wrap.motion.any_limit_reached()):
                 img_wrap.start_deinit()
 
             if not success:

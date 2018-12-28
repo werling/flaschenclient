@@ -205,3 +205,7 @@ class ImageWrapper(object):
     def blur_out_frames(self, value):
         self._blur_out_frames = value
 
+    @property
+    def motion(self):
+        return self._motion
+

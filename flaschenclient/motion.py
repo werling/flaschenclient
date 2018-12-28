@@ -35,15 +35,7 @@ class Motion(object):
         self._limits = limits
         self._action_at_limit = None
 
-    def tick(self):
-        self._rotation_speed += self._rotation_acceleration
-
-        self._x_velocity += self._x_acceleration + self._x_gravity
-        self._y_velocity += self._y_acceleration + self._y_gravity
-
-        self._zoom_velocity += self._zoom_acceleration
-
-    def handle_limit_reached_all(self):
+    def _handle_limit_reached_all(self):
 
         if self.action_at_limit is None:
             return True
@@ -81,7 +73,7 @@ class Motion(object):
             return False
         return True
 
-    def handle_limit_reached(self, vel, acc):
+    def _handle_limit_reached(self, vel, acc):
 
         if self.action_at_limit == "stop_single":
             vel = 0
@@ -95,14 +87,17 @@ class Motion(object):
 
         return vel, acc
 
+    def any_limit_reached(self):
+        return self._limits.any_limit_reached()
+
     def rotate(self, rotation):
         rotation += self._rotation_speed
         rotation = self._limits.check("rot", rotation)
 
         if self._limits.rot.min_max_reached:
-            if not self.handle_limit_reached_all():
-                self._rotation_speed, self._rotation_acceleration = self.handle_limit_reached(self._rotation_speed,
-                                                                                            self._rotation_acceleration)
+            if not self._handle_limit_reached_all():
+                self._rotation_speed, self._rotation_acceleration = self._handle_limit_reached(self._rotation_speed,
+                                                                                               self._rotation_acceleration)
 
         self._rotation_speed += self._rotation_acceleration
         return rotation
@@ -120,14 +115,14 @@ class Motion(object):
         y_offset = self._limits.check("y", y_offset)
 
         if self._limits.x.min_max_reached:
-            if not self.handle_limit_reached_all():
-                self._x_velocity, self._x_acceleration = self.handle_limit_reached(self._x_velocity,
-                                                                                   self._x_acceleration)
+            if not self._handle_limit_reached_all():
+                self._x_velocity, self._x_acceleration = self._handle_limit_reached(self._x_velocity,
+                                                                                    self._x_acceleration)
 
         if self._limits.y.min_max_reached:
-            if not self.handle_limit_reached_all():
-                self._y_velocity, self._y_acceleration = self.handle_limit_reached(self._y_velocity,
-                                                                                   self._y_acceleration)
+            if not self._handle_limit_reached_all():
+                self._y_velocity, self._y_acceleration = self._handle_limit_reached(self._y_velocity,
+                                                                                    self._y_acceleration)
 
         self._x_velocity += self._x_acceleration + self._x_gravity
         self._y_velocity += self._y_acceleration + self._y_gravity
@@ -146,9 +141,9 @@ class Motion(object):
             width_new = width
             height_new = height
 
-            if not self.handle_limit_reached_all():
-                self._zoom_velocity, self._zoom_acceleration = self.handle_limit_reached(self._zoom_velocity,
-                                                                                         self._zoom_acceleration)
+            if not self._handle_limit_reached_all():
+                self._zoom_velocity, self._zoom_acceleration = self._handle_limit_reached(self._zoom_velocity,
+                                                                                          self._zoom_acceleration)
         self._zoom_velocity += self._zoom_acceleration
         return width_new, height_new
 
