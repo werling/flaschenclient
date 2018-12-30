@@ -160,11 +160,11 @@ class FlaschenClient(object):
     def clear(self, layer):
         width = 1024
         height = 1024
-        img = Image.new('RGB', (width, height), color='black')
+        img = Image.new('RGB', (width, height), color=(0, 0, 0))
         img = self._crop_image_to_display_size(img)[0]
         image_bytes = io.BytesIO()
         img.save(image_bytes, 'png')
-        self._socket_send(image_bytes, img.width, img.height, layer)
+        self._socket_send(image_bytes, layer)
 
     def clear_all(self):
         for i in range(0, 15):

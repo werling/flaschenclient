@@ -5,7 +5,7 @@ with open("README.md", "r") as fh:
 
 setuptools.setup(
     name="flaschenclient",
-    version="0.1.1",
+    version="0.1.3",
     author="Sebastian Werling",
     author_email="sebastian.werling@gmail.com",
     description="With this python library you can send simple animations to the flaschen taschen server (fork).",
