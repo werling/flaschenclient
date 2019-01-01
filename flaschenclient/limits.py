@@ -93,7 +93,7 @@ class Limits(object):
 
     @property
     def height(self):
-        return self._width
+        return self._height
 
     @height.setter
     def height(self, value):
