@@ -9,6 +9,13 @@ Before using this library please have a look at the original project: https://gi
 Some examples how to use the python library can be found in the examples folder.
 The test display has the resolution 256x96.
 
+
+### Installation
+
+To install, simply use pip:
+
+``` pip install flaschenclient ```
+
 The main features are:
 
 ### loading and playing images/gifs
